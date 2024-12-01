@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.db import models
-
 class Player(models.Model):
     name = models.CharField(max_length=100)
     total_score = models.IntegerField(default=0)
@@ -16,3 +14,11 @@ class GameScore(models.Model):
 
     def __str__(self):
         return f"{self.player.name}: {self.score}"
+
+    def save(self, *args, **kwargs):
+        # Call the original save method
+        super().save(*args, **kwargs)
+        # Update the player's total score
+        self.player.total_score += self.score
+        self.player.save()
+
