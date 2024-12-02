@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import add_player
+from . import views
 
 urlpatterns = [
-    path("add_player/", add_player, name="add_player"),
+    path("", views.leaderboard, name="home"),  # Add this line for the default path
+    path("add_player/", views.add_player, name="add_player"),
+    path("leaderboard/", views.leaderboard, name="leaderboard"), 
 ]

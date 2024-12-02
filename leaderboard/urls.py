@@ -16,8 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.http import HttpResponseRedirect
+from leaderboard_app.views import home, leaderboard  # Import the home and leaderboard views
+
+
+
 
 urlpatterns = [
+    # Redirect the root URL to leaderboard_app
+    path("", lambda request: HttpResponseRedirect("leaderboard_app/")),
+    
+    # Admin interface
+    path("admin/", admin.site.urls),
+    
+    path("leaderboard/", leaderboard, name="leaderboard"),
+
+    
+    # Include URLs from leaderboard_app
     path("leaderboard_app/", include("leaderboard_app.urls")),
-    path('admin/', admin.site.urls),
 ]
+
